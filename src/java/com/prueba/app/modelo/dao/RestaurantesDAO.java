@@ -6,7 +6,7 @@
 package com.prueba.app.modelo.dao;
 
 import com.prueba.app.modelo.vo.Restaurantes;
-import com.prueba.test.Constantes;
+import com.prueba.app.Utils.Constantes;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

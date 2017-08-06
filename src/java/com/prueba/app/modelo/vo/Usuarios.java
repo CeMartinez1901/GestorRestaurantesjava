@@ -12,7 +12,7 @@ package com.prueba.app.modelo.vo;
 public class Usuarios {
     private Integer Id;
     private String Nombre;
-    private String Contraseña;
+    private String Contrasena;
     private String Usuario;
 
     /**
@@ -47,14 +47,14 @@ public class Usuarios {
      * @return the Contraseña
      */
     public String getContraseña() {
-        return Contraseña;
+        return Contrasena;
     }
 
     /**
      * @param Contraseña the Contraseña to set
      */
     public void setContraseña(String Contraseña) {
-        this.Contraseña = Contraseña;
+        this.Contrasena = Contraseña;
     }
 
     /**

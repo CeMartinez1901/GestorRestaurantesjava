@@ -10,6 +10,7 @@ import com.prueba.app.modelo.dao.UsuariosDAO;
 import java.sql.Connection;
 import java.util.List;
 import com.prueba.app.modelo.vo.Usuarios;
+import java.sql.SQLException;
 
 /**
  *
@@ -32,7 +33,7 @@ public class UsuarioControl {
             if (usuarios.isEmpty()) {
                 throw new ProjectException(100, "lista vacia");
             }
-        } catch (Exception e) {
+        } catch (ProjectException | SQLException e) {
             throw new ProjectException(100, "no hay usuarios");
         }
         return usuarios;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.prueba.test;
+package com.prueba.app.Utils;
 
 /**
  *
@@ -13,7 +13,7 @@ public class Constantes {
 
     //Usuario
     public static final String InsertUser = "INSERT INTO USUARIO (nombre,contrasena,usuario) VALUES (?,?,?);";
-    public static final String UpdateUser = "UPDATE USUARIO SET nombre = ?, usuario ? WHERE id = ?";
+    public static final String UpdateUser = "UPDATE USUARIO SET nombre = ?, usuario = ? WHERE id = ?";
     public static final String SelectUsers = "SELECT * FROM USUARIO";
     public static final String DeleteUser = "DELETE FROM USUARIO WHERE id = ?";
 

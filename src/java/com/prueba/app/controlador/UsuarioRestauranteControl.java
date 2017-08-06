@@ -10,9 +10,7 @@ import com.prueba.app.modelo.dao.Usuario_RestauranteDAO;
 import com.prueba.app.modelo.vo.Restaurantes;
 import com.prueba.app.modelo.vo.Usuario_Restaurante;
 import com.prueba.app.modelo.vo.Usuarios;
-import com.prueba.test.Constantes;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -69,7 +67,7 @@ public class UsuarioRestauranteControl {
         List<Usuarios> listuser;
         try {
             listuser = dao.UsersByRestaurant(id);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new ProjectException(100, "no hay usuarios por restaurante");
         }
         return listuser;

@@ -6,7 +6,7 @@
 package com.prueba.app.modelo.dao;
 
 import com.prueba.app.modelo.vo.Usuarios;
-import com.prueba.test.Constantes;
+import com.prueba.app.Utils.Constantes;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,26 +27,26 @@ public class UsuariosDAO {
 
     public boolean Insert(Usuarios usu) throws SQLException {
 
-        boolean result;
+        boolean result = true;
 
         PreparedStatement sentences = cnn.prepareStatement(Constantes.InsertUser);
         sentences.setString(1, usu.getNombre());
         sentences.setString(2, usu.getContraseña());
         sentences.setString(3, usu.getUsuario());
-        result = sentences.execute();
+        sentences.execute();
         return result;
 
     }
 
     public boolean Update(Usuarios usu) throws SQLException {
 
-        boolean result;
+        boolean result = true;
 
         PreparedStatement sentences = cnn.prepareStatement(Constantes.UpdateUser);
         sentences.setString(1, usu.getNombre());
         sentences.setString(2, usu.getUsuario());
         sentences.setInt(3, usu.getId());
-        result = sentences.execute();
+        sentences.execute();
         return result;
     }
 
@@ -70,11 +70,11 @@ public class UsuariosDAO {
 
     public boolean Delete(int id) throws SQLException {
 
-        boolean result;
+        boolean result = true;
 
         PreparedStatement sentences = cnn.prepareStatement(Constantes.DeleteUser);
         sentences.setInt(1, id);
-        result = sentences.execute();
+        sentences.execute();
         return result;
     }
 
