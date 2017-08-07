@@ -7,8 +7,10 @@ package com.prueba.app.vista;
 
 import com.google.gson.Gson;
 import com.prueba.app.Utils.ProjectException;
-import com.prueba.app.controlador.UsuarioControl;
+import com.prueba.app.controlador.UsuarioRestauranteControl;
 import com.prueba.app.modelo.dao.ConexionBD;
+import com.prueba.app.modelo.vo.Restaurantes;
+import com.prueba.app.modelo.vo.Usuario_Restaurante;
 import com.prueba.app.modelo.vo.Usuarios;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,8 +31,8 @@ import javax.ws.rs.core.MediaType;
  *
  * @author ASUS
  */
-@WebServlet(name = "Usuarios", urlPatterns = {"/usuarios"})
-public class UsuarioServlet extends HttpServlet {
+@WebServlet(name = "UsuarioRestauranteServlet", urlPatterns = {"/usuariorestaurante"})
+public class UsuarioRestauranteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,44 +42,44 @@ public class UsuarioServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws javax.naming.NamingException
-     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NamingException, SQLException, ProjectException {
         response.setContentType(MediaType.APPLICATION_JSON);
         Connection cnn = null;
         try (PrintWriter out = response.getWriter()) {
-             boolean result = false;
+            boolean result = false;
             String message = null;
             cnn = ConexionBD.getConexionBD();
             String action = request.getParameter("action");
             action = (action == null) ? "default" : action;
             String data = request.getParameter("data");
-            UsuarioControl usuariocontrol = new UsuarioControl(cnn);
-            Usuarios usuario = new Gson().fromJson(data, Usuarios.class);
+            UsuarioRestauranteControl usuariorestaurantecontrol = new UsuarioRestauranteControl(cnn);
+            Usuario_Restaurante usuario_restaurante = new Gson().fromJson(data, Usuario_Restaurante.class);
+
             switch (action) {
                 case "insert":
-                    result = usuariocontrol.Insert(usuario);
-                    message = new Gson().toJson(result);
-                    break;
-                case "update":
-                    result = usuariocontrol.Update(usuario);
+                    result = usuariorestaurantecontrol.Insert(usuario_restaurante);
                     message = new Gson().toJson(result);
                     break;
                 case "delete":
-                    result = usuariocontrol.Delete(usuario.getId());
+                    result = usuariorestaurantecontrol.Delete(usuario_restaurante.getId());
                     message = new Gson().toJson(result);
                     break;
                 default:
-                    List<Usuarios> listusuarios = usuariocontrol.Consultar();
-                    message = new Gson().toJson(listusuarios);
+                    List<Usuarios> listausuarios = null;
+                    List<Restaurantes> listarestaurantes = null;
+                    String querystring = request.getQueryString();
+                    if (querystring.contains("1")) {
+                        listausuarios = usuariorestaurantecontrol.UsersByRestaurant(usuario_restaurante.getId_Restaurante());
+                        message = new Gson().toJson(listausuarios);
+                    } else {
+                        listarestaurantes = usuariorestaurantecontrol.RestaurantsByUser(usuario_restaurante.getId_Usuario());
+                        message = new Gson().toJson(listarestaurantes);
+                    }
                     break;
             }
             out.print(message);
-            ConexionBD.desconectarBD(cnn);
-        } catch (Exception e) {
-            ConexionBD.reservarBD(cnn);
         }
     }
 
@@ -94,18 +96,13 @@ public class UsuarioServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            try {
-                processRequest(request, response);
-
-            } catch (ProjectException ex) {
-                Logger.getLogger(UsuarioServlet.class
-                        .getName()).log(Level.SEVERE, null, ex);
-
-            }
-        } catch (NamingException | SQLException ex) {
-            Logger.getLogger(UsuarioServlet.class
-                    .getName()).log(Level.SEVERE, null, ex);
-
+            processRequest(request, response);
+        } catch (NamingException ex) {
+            Logger.getLogger(UsuarioRestauranteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioRestauranteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ProjectException ex) {
+            Logger.getLogger(UsuarioRestauranteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -121,18 +118,13 @@ public class UsuarioServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            try {
-                processRequest(request, response);
-
-            } catch (ProjectException ex) {
-                Logger.getLogger(UsuarioServlet.class
-                        .getName()).log(Level.SEVERE, null, ex);
-
-            }
-        } catch (NamingException | SQLException ex) {
-            Logger.getLogger(UsuarioServlet.class
-                    .getName()).log(Level.SEVERE, null, ex);
-
+            processRequest(request, response);
+        } catch (NamingException ex) {
+            Logger.getLogger(UsuarioRestauranteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioRestauranteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ProjectException ex) {
+            Logger.getLogger(UsuarioRestauranteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
