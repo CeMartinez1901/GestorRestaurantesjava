@@ -33,8 +33,7 @@ import javax.ws.rs.core.MediaType;
 public class UsuarioServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -42,13 +41,14 @@ public class UsuarioServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      * @throws javax.naming.NamingException
      * @throws java.sql.SQLException
+     * @throws com.prueba.app.Utils.ProjectException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NamingException, SQLException, ProjectException {
         response.setContentType(MediaType.APPLICATION_JSON);
         Connection cnn = null;
         try (PrintWriter out = response.getWriter()) {
-             boolean result = false;
+            boolean result = false;
             String message = null;
             cnn = ConexionBD.getConexionBD();
             String action = request.getParameter("action");
@@ -93,20 +93,14 @@ public class UsuarioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         try {
-            try {
-                processRequest(request, response);
-
-            } catch (ProjectException ex) {
-                Logger.getLogger(UsuarioServlet.class
-                        .getName()).log(Level.SEVERE, null, ex);
-
-            }
-        } catch (NamingException | SQLException ex) {
+            processRequest(request, response);
+        } catch (ProjectException | NamingException | SQLException ex) {
             Logger.getLogger(UsuarioServlet.class
                     .getName()).log(Level.SEVERE, null, ex);
-
         }
+
     }
 
     /**
@@ -121,18 +115,11 @@ public class UsuarioServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            try {
-                processRequest(request, response);
+            processRequest(request, response);
 
-            } catch (ProjectException ex) {
-                Logger.getLogger(UsuarioServlet.class
-                        .getName()).log(Level.SEVERE, null, ex);
-
-            }
-        } catch (NamingException | SQLException ex) {
+        } catch (ProjectException | NamingException | SQLException ex) {
             Logger.getLogger(UsuarioServlet.class
                     .getName()).log(Level.SEVERE, null, ex);
-
         }
     }
 

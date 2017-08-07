@@ -40,6 +40,9 @@ public class RestauranteServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws com.prueba.app.Utils.ProjectException
+     * @throws javax.naming.NamingException
+     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ProjectException , NamingException , SQLException{
@@ -73,6 +76,7 @@ public class RestauranteServlet extends HttpServlet {
                     break;
             }
             out.print(message);
+            ConexionBD.desconectarBD(cnn);
         }
     }
 
@@ -90,11 +94,7 @@ public class RestauranteServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (ProjectException ex) {
-            Logger.getLogger(RestauranteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NamingException ex) {
-            Logger.getLogger(RestauranteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ProjectException | NamingException | SQLException ex) {
             Logger.getLogger(RestauranteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -112,7 +112,7 @@ public class RestauranteServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (Exception ex) {
+        } catch (ProjectException | IOException | SQLException | NamingException | ServletException ex) {
             Logger.getLogger(RestauranteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

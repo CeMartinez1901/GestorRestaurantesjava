@@ -42,6 +42,9 @@ public class UsuarioRestauranteServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws javax.naming.NamingException
+     * @throws java.sql.SQLException
+     * @throws com.prueba.app.Utils.ProjectException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NamingException, SQLException, ProjectException {
@@ -80,6 +83,7 @@ public class UsuarioRestauranteServlet extends HttpServlet {
                     break;
             }
             out.print(message);
+            ConexionBD.desconectarBD(cnn);
         }
     }
 
@@ -97,11 +101,7 @@ public class UsuarioRestauranteServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (NamingException ex) {
-            Logger.getLogger(UsuarioRestauranteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuarioRestauranteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ProjectException ex) {
+        } catch (NamingException | SQLException | ProjectException ex) {
             Logger.getLogger(UsuarioRestauranteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -119,11 +119,7 @@ public class UsuarioRestauranteServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (NamingException ex) {
-            Logger.getLogger(UsuarioRestauranteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuarioRestauranteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ProjectException ex) {
+        } catch (NamingException | SQLException | ProjectException ex) {
             Logger.getLogger(UsuarioRestauranteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
