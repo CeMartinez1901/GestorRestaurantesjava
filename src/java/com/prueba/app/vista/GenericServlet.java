@@ -3,29 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.prueba.test;
+package com.prueba.app.vista;
 
-import com.prueba.app.modelo.dao.ConexionBD;
-import com.prueba.app.modelo.dao.UsuariosDAO;
-import com.prueba.app.modelo.vo.Usuarios;
+import com.prueba.app.Utils.ProjectException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.SQLException;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.jasper.tagplugins.jstl.ForEach;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author Administrador
+ * @author ASUS
  */
-@WebServlet(name = "PruebaAPPServlet", urlPatterns = {"/PruebaAPPServlet"})
-public class PruebaAPPServlet extends HttpServlet {
+public abstract class GenericServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,43 +32,15 @@ public class PruebaAPPServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType(MediaType.APPLICATION_JSON);
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PruebaAPPServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            try {
-                Connection cnn;
-                cnn = ConexionBD.getConexionBD();
-                out.println("<h1>ok</h1>");
-                Usuarios usu = new Usuarios();
-//                usu.setNombre("fsdfds");
-//                usu.setContraseña("fsdfds");
-//                usu.setUsuario("fsdfds");
-                UsuariosDAO usudao = new UsuariosDAO(cnn);
-//                usudao.Insert(usu);
-                List<Usuarios> list;
-                list = usudao.Leer();
-//                list.forEach((_item) -> {
-//                    out.print(String.format("nombre :_%s%n contraseña : %s%n usuario : %s%n", _item.getNombre(), _item.getContraseña(), _item.getUsuario()));
-//                });
-                //list.forEach((x)-> { );
-//                for (Usuarios _item : list) {
-//                    out.print(String.format("nombre :_%s%n contraseña : %s%n usuario : %s%n", _item.getNombre(), _item.getContraseña(), _item.getUsuario()));
-//                }
-                ConexionBD.desconectarBD(cnn);
-            } catch (Exception e) {
-                e.printStackTrace();
-                out.println("<h1>" + e.getMessage() + "</h1>");
-            }
-            out.println("</body>");
-            out.println("</html>");
+            process(request, response, out);
+        } catch (Exception ex) {
+
         }
     }
+
+    public abstract void process(HttpServletRequest request, HttpServletResponse response, PrintWriter out) throws ServletException, IOException, NamingException, SQLException,ProjectException;
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

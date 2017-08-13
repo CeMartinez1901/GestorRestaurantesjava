@@ -1,15 +1,19 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package com.prueba.app.modelo.vo;
 
+import com.prueba.app.Interfases.IGenericVo;
+
 /**
  *
  * @author Administrador
  */
-public class Restaurantes {
+public class Restaurantes
+        implements IGenericVo {
+
     private Integer Id;
     private String Nombre;
     private String Zona;
@@ -55,6 +59,5 @@ public class Restaurantes {
     public void setZona(String Zona) {
         this.Zona = Zona;
     }
-    
-    
+
 }

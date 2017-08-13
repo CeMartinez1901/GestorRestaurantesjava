@@ -5,6 +5,7 @@
  */
 package com.prueba.app.modelo.dao;
 
+import com.prueba.app.Interfases.IGenericDao;
 import com.prueba.app.modelo.vo.Restaurantes;
 import com.prueba.app.modelo.vo.Usuario_Restaurante;
 import com.prueba.app.modelo.vo.Usuarios;
@@ -20,7 +21,7 @@ import java.util.List;
  *
  * @author Administrador
  */
-public class Usuario_RestauranteDAO {
+public class Usuario_RestauranteDAO implements IGenericDao<Usuario_Restaurante> {
 
     Connection cnn;
 
@@ -88,4 +89,30 @@ public class Usuario_RestauranteDAO {
 
         return listuser;
     }
-}
+
+    @Override
+    public Usuario_Restaurante Consultar(Usuario_Restaurante T) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Usuario_Restaurante> Leer() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean Actualizar(Usuario_Restaurante T) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void Eliminar(Usuario_Restaurante T) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean Insertar(Usuario_Restaurante t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    }

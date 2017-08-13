@@ -4,9 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/ASUS/Documents/Cursos%20ejercicios%20proyectos%20sena/Java/ProyectoSenaEspecialización/GestorRestaurantesjava/src/java/com/prueba/app/modelo/vo/Usuarios.java</file>
+            <file>file:/C:/Users/ASUS/Documents/Cursos%20ejercicios%20proyectos%20sena/Java/ProyectoSenaEspecialización/GestorRestaurantesjava/src/java/com/prueba/app/controlador/RestaurantesControl.java</file>
+            <file>file:/C:/Users/ASUS/Documents/Cursos%20ejercicios%20proyectos%20sena/Java/ProyectoSenaEspecialización/GestorRestaurantesjava/src/java/com/prueba/app/vista/UsuarioRestauranteServlet.java</file>
             <file>file:/C:/Users/ASUS/Documents/Cursos%20ejercicios%20proyectos%20sena/Java/ProyectoSenaEspecialización/GestorRestaurantesjava/src/java/com/prueba/app/controlador/UsuarioControl.java</file>
             <file>file:/C:/Users/ASUS/Documents/Cursos%20ejercicios%20proyectos%20sena/Java/ProyectoSenaEspecialización/GestorRestaurantesjava/src/java/com/prueba/app/vista/UsuarioServlet.java</file>
             <file>file:/C:/Users/ASUS/Documents/Cursos%20ejercicios%20proyectos%20sena/Java/ProyectoSenaEspecialización/GestorRestaurantesjava/src/java/com/prueba/app/Utils/ProjectException.java</file>
+            <file>file:/C:/Users/ASUS/Documents/Cursos%20ejercicios%20proyectos%20sena/Java/ProyectoSenaEspecialización/GestorRestaurantesjava/src/java/com/prueba/app/vista/RestauranteServlet.java</file>
+            <file>file:/C:/Users/ASUS/Documents/Cursos%20ejercicios%20proyectos%20sena/Java/ProyectoSenaEspecialización/GestorRestaurantesjava/src/java/com/prueba/app/modelo/dao/ConexionBD.java</file>
         </group>
     </open-files>
 </project-private>

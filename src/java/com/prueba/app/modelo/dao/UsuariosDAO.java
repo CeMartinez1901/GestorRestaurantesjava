@@ -5,6 +5,7 @@
  */
 package com.prueba.app.modelo.dao;
 
+import com.prueba.app.Interfases.IGenericDao;
 import com.prueba.app.modelo.vo.Usuarios;
 import com.prueba.app.Utils.Constantes;
 import java.sql.Connection;
@@ -12,12 +13,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Administrador
  */
-public class UsuariosDAO {
+public class UsuariosDAO implements IGenericDao<Usuarios> {
 
     Connection cnn;
 
@@ -25,33 +27,13 @@ public class UsuariosDAO {
         this.cnn = cnn;
     }
 
-    public boolean Insert(Usuarios usu) throws SQLException {
-
-        boolean result = true;
-
-        PreparedStatement sentences = cnn.prepareStatement(Constantes.InsertUser);
-        sentences.setString(1, usu.getNombre());
-        sentences.setString(2, usu.getContraseña());
-        sentences.setString(3, usu.getUsuario());
-        sentences.execute();
-        return result;
-
+    @Override
+    public Usuarios Consultar(Usuarios T) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public boolean Update(Usuarios usu) throws SQLException {
-
-        boolean result = true;
-
-        PreparedStatement sentences = cnn.prepareStatement(Constantes.UpdateUser);
-        sentences.setString(1, usu.getNombre());
-        sentences.setString(2, usu.getUsuario());
-        sentences.setInt(3, usu.getId());
-        sentences.execute();
-        return result;
-    }
-
-    public ArrayList<Usuarios> Read() throws SQLException {
-
+    @Override
+    public List<Usuarios> Leer() throws SQLException {
         ResultSet result;
         ArrayList<Usuarios> users = new ArrayList<>();
 
@@ -68,12 +50,33 @@ public class UsuariosDAO {
         return users;
     }
 
-    public boolean Delete(int id) throws SQLException {
-
+    @Override
+    public boolean Actualizar(Usuarios T) throws SQLException {
         boolean result = true;
 
+        PreparedStatement sentences = cnn.prepareStatement(Constantes.UpdateUser);
+        sentences.setString(1, T.getNombre());
+        sentences.setString(2, T.getUsuario());
+        sentences.setInt(3, T.getId());
+        sentences.execute();
+        return result;
+    }
+
+    @Override
+    public void Eliminar(Usuarios T) throws SQLException {
+
         PreparedStatement sentences = cnn.prepareStatement(Constantes.DeleteUser);
-        sentences.setInt(1, id);
+        sentences.setInt(1, T.getId());
+        sentences.execute();
+    }
+
+    @Override
+    public boolean Insertar(Usuarios t) throws SQLException {
+        boolean result = true;
+        PreparedStatement sentences = cnn.prepareStatement(Constantes.InsertUser);
+        sentences.setString(1, t.getNombre());
+        sentences.setString(2, t.getContraseña());
+        sentences.setString(3, t.getUsuario());
         sentences.execute();
         return result;
     }

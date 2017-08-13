@@ -5,6 +5,7 @@
  */
 package com.prueba.app.modelo.dao;
 
+import com.prueba.app.Interfases.IGenericDao;
 import com.prueba.app.modelo.vo.Restaurantes;
 import com.prueba.app.Utils.Constantes;
 import java.sql.Connection;
@@ -18,34 +19,13 @@ import java.util.List;
  *
  * @author Administrador
  */
-public class RestaurantesDAO {
+public class RestaurantesDAO
+        implements IGenericDao<Restaurantes> {
 
     Connection cnn;
 
     public RestaurantesDAO(Connection cnn) {
         this.cnn = cnn;
-    }
-
-    public boolean Insert(Restaurantes res) throws SQLException {
-
-        boolean result;
-
-        PreparedStatement sentences = cnn.prepareStatement(Constantes.InsertRestaurant);
-        sentences.setString(1, res.getNombre());
-        sentences.setString(2, res.getZona());
-        result = sentences.execute();
-        return result;
-    }
-
-    public boolean Update(Restaurantes res) throws SQLException {
-
-        boolean result;
-
-        PreparedStatement sentences = cnn.prepareStatement(Constantes.UpdateRestaurant);
-        sentences.setString(1, res.getNombre());
-        sentences.setString(2, res.getZona());
-        result = sentences.execute();
-        return result;
     }
 
     public boolean Delete(int id) throws SQLException {
@@ -58,8 +38,13 @@ public class RestaurantesDAO {
         return result;
     }
 
-    public List<Restaurantes> Read() throws SQLException {
+    @Override
+    public Restaurantes Consultar(Restaurantes T) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
+    @Override
+    public List<Restaurantes> Leer() throws SQLException {
         ArrayList<Restaurantes> list_restaurant = new ArrayList<>();
         ResultSet result;
 
@@ -74,5 +59,34 @@ public class RestaurantesDAO {
             list_restaurant.add(restaurant);
         }
         return list_restaurant;
+    }
+
+    @Override
+    public boolean Actualizar(Restaurantes T) throws SQLException {
+         boolean result;
+
+        PreparedStatement sentences = cnn.prepareStatement(Constantes.UpdateRestaurant);
+        sentences.setString(1, T.getNombre());
+        sentences.setString(2, T.getZona());
+        result = sentences.execute();
+        return result;
+    }
+
+    @Override
+    public void Eliminar(Restaurantes T) throws SQLException {
+        PreparedStatement sentences = cnn.prepareStatement(Constantes.DeleteRestaurant);
+        sentences.setInt(1, T.getId());
+        sentences.execute();
+    }
+
+    @Override
+    public boolean Insertar(Restaurantes T) throws SQLException {
+        boolean result;
+
+        PreparedStatement sentences = cnn.prepareStatement(Constantes.InsertRestaurant);
+        sentences.setString(1, T.getNombre());
+        sentences.setString(2, T.getZona());
+        result = sentences.execute();
+        return result;
     }
 }

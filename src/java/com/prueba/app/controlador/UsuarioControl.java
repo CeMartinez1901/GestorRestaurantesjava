@@ -25,48 +25,49 @@ public class UsuarioControl {
         this.cnn = cnn;
     }
 
-    public List<Usuarios> Consultar() throws ProjectException {
+    public List<Usuarios> Consultar() throws ProjectException, SQLException {
         dao = new UsuariosDAO(cnn);
         List<Usuarios> usuarios;
         try {
-            usuarios = dao.Read();
+            usuarios = dao.Leer();
             if (usuarios.isEmpty()) {
                 throw new ProjectException(100, "lista vacia");
             }
-        } catch (ProjectException | SQLException e) {
+        } catch (ProjectException e) {
             throw new ProjectException(100, "no hay usuarios");
         }
         return usuarios;
     }
 
-    public boolean Delete(int id) throws ProjectException {
+    public boolean Delete(Usuarios usu) throws ProjectException {
         dao = new UsuariosDAO(cnn);
-        boolean result;
+        
+        
         try {
-            result = dao.Delete(id);
+           dao.Eliminar(usu);
         } catch (Exception e) {
             throw new ProjectException(100, "fallo eliminacion");
         }
-        return result;
+        return false;
     }
 
     public boolean Insert(Usuarios usu) throws ProjectException {
         dao = new UsuariosDAO(cnn);
         boolean result;
         try {
-            result = dao.Insert(usu);
+            result = dao.Insertar(usu);
         } catch (Exception e) {
             throw new ProjectException(100, "fallo insercion");
         }
-        return result;
+        return false;
     }
 
     public boolean Update(Usuarios usu) throws ProjectException {
         dao = new UsuariosDAO(cnn);
         boolean result;
         try {
-            result = dao.Update(usu);
-        } catch (Exception e) {
+            result = dao.Actualizar(usu);
+        } catch (SQLException e) {
             throw new ProjectException(100, "fallo la actualizacion");
         }
         return result;

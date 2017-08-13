@@ -5,13 +5,15 @@
  */
 package com.prueba.app.modelo.vo;
 
+import com.prueba.app.Interfases.IGenericVo;
 import java.util.List;
 
 /**
  *
  * @author Administrador
  */
-public class Usuario_Restaurante {
+public class Usuario_Restaurante extends Usuarios
+        implements IGenericVo {
     private List<Usuarios> ListaUsuarios;
     private List<Restaurantes> ListaRestaurantes;
     private Integer Id;

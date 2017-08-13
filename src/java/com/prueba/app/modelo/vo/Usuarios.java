@@ -5,11 +5,14 @@
  */
 package com.prueba.app.modelo.vo;
 
+import com.prueba.app.Interfases.IGenericVo;
+
+
 /**
  *
  * @author Administrador
  */
-public class Usuarios {
+public class Usuarios implements IGenericVo{
     private Integer Id;
     private String Nombre;
     private String Contrasena;

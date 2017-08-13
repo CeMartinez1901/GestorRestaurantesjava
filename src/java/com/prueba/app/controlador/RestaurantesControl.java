@@ -6,17 +6,20 @@
 package com.prueba.app.controlador;
 
 import com.prueba.app.Utils.ProjectException;
+import com.prueba.app.modelo.dao.ConexionBD;
 import com.prueba.app.modelo.dao.RestaurantesDAO;
 import java.net.ConnectException;
 import com.prueba.app.modelo.vo.Restaurantes;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
+
 /**
  *
  * @author Administrador
  */
 public class RestaurantesControl {
-    
+
     Connection cnn;
     RestaurantesDAO dao;
 
@@ -28,7 +31,7 @@ public class RestaurantesControl {
         dao = new RestaurantesDAO(cnn);
         List<Restaurantes> restaurantes;
         try {
-            restaurantes = dao.Read();
+            restaurantes = dao.Leer();
             if (restaurantes.isEmpty()) {
                 throw new ProjectException(100, "lista vacia");
             }
@@ -38,23 +41,23 @@ public class RestaurantesControl {
         return restaurantes;
     }
 
-    public boolean Delete(int id) throws ProjectException {
+    public void Delete(Restaurantes res) throws ProjectException {
         dao = new RestaurantesDAO(cnn);
-        boolean result;
+
         try {
-            result = dao.Delete(id);
-        } catch (Exception e) {
+            dao.Eliminar(res);
+        } catch (SQLException e) {
             throw new ProjectException(100, "fallo eliminacion");
         }
-        return result;
     }
 
     public boolean Insert(Restaurantes res) throws ProjectException {
         dao = new RestaurantesDAO(cnn);
         boolean result;
         try {
-            result = dao.Insert(res);
-        } catch (Exception e) {
+            result = dao.Insertar(res);
+//            throw new ProjectException(100, "fallo insercion");
+        } catch (SQLException e) {
             throw new ProjectException(100, "fallo insercion");
         }
         return result;
@@ -64,10 +67,10 @@ public class RestaurantesControl {
         dao = new RestaurantesDAO(cnn);
         boolean result;
         try {
-            result = dao.Update(res);
-        } catch (Exception e) {
+            result = dao.Actualizar(res);
+        } catch (SQLException e) {
             throw new ProjectException(100, "fallo la actualizacion");
         }
         return result;
-    }  
+    }
 }
