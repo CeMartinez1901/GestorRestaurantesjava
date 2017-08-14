@@ -41,11 +41,10 @@ public class UsuarioControl {
 
     public boolean Delete(Usuarios usu) throws ProjectException {
         dao = new UsuariosDAO(cnn);
-        
-        
+
         try {
-           dao.Eliminar(usu);
-        } catch (Exception e) {
+            dao.Eliminar(usu);
+        } catch (SQLException e) {
             throw new ProjectException(100, "fallo eliminacion");
         }
         return false;
@@ -56,10 +55,10 @@ public class UsuarioControl {
         boolean result;
         try {
             result = dao.Insertar(usu);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new ProjectException(100, "fallo insercion");
         }
-        return false;
+        return result;
     }
 
     public boolean Update(Usuarios usu) throws ProjectException {

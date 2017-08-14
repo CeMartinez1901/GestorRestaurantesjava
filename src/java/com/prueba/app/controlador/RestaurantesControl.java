@@ -6,9 +6,7 @@
 package com.prueba.app.controlador;
 
 import com.prueba.app.Utils.ProjectException;
-import com.prueba.app.modelo.dao.ConexionBD;
 import com.prueba.app.modelo.dao.RestaurantesDAO;
-import java.net.ConnectException;
 import com.prueba.app.modelo.vo.Restaurantes;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -35,7 +33,7 @@ public class RestaurantesControl {
             if (restaurantes.isEmpty()) {
                 throw new ProjectException(100, "lista vacia");
             }
-        } catch (Exception e) {
+        } catch (ProjectException | SQLException e) {
             throw new ProjectException(100, "no hay usuarios");
         }
         return restaurantes;
@@ -56,7 +54,6 @@ public class RestaurantesControl {
         boolean result;
         try {
             result = dao.Insertar(res);
-//            throw new ProjectException(100, "fallo insercion");
         } catch (SQLException e) {
             throw new ProjectException(100, "fallo insercion");
         }

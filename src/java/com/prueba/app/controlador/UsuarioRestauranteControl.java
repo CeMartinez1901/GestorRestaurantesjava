@@ -72,14 +72,4 @@ public class UsuarioRestauranteControl {
         }
         return listuser;
     }
-    
-    public void hola ()
-    {
-     dao = new Usuario_RestauranteDAO(cnn);
-     Restaurantes res = new Restaurantes();
-        try {
-        } catch (Exception e) {
-        }
-      
-    }
 }
