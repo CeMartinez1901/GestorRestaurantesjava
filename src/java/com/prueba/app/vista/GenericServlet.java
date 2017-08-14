@@ -5,6 +5,7 @@
  */
 package com.prueba.app.vista;
 
+import com.google.gson.Gson;
 import com.prueba.app.Utils.ProjectException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,12 +33,18 @@ public abstract class GenericServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String mensaje = "La operación ha sido un exito";
+        int code = 0;
+        PrintWriter out = response.getWriter();
         response.setContentType(MediaType.APPLICATION_JSON);
-        try (PrintWriter out = response.getWriter()) {
+        try {
             process(request, response, out);
-        } catch (Exception ex) {
-
+        } catch (ProjectException | IOException | SQLException | NamingException | ServletException ex) {
+            mensaje = ex.getMessage();
+            code = ex.hashCode();
         }
+        out.print(new Gson().toJson(mensaje));
+        out.print(new Gson().toJson(code));
     }
 
     public abstract void process(HttpServletRequest request, HttpServletResponse response, PrintWriter out) throws ServletException, IOException, NamingException, SQLException,ProjectException;
